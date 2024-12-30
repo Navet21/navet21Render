@@ -2,15 +2,12 @@ const express = require('express')
 const logger = require('morgan')
 const errorhandler = require('errorhandler')
 const bodyParser = require('body-parser')
-const port = 3000
 
-//Store
-
+// Store
 let store = {}
 store.accounts = []
 
-//Express
-
+// Express
 let app = express()
 
 // Uso de middlewares
@@ -18,21 +15,19 @@ app.use(bodyParser.json()) // Middleware para parsear JSON
 app.use(logger('dev')) // Middleware para registrar solicitudes en la consola
 app.use(errorhandler()) // Middleware para manejar errores en modo desarrollo
 
+// Endpoints
 
-//Endpoints
-
-//Confirmacion de Render
-
+// Confirmación de Render
 app.get('/', (_req, res) => {
     res.send('API REST desplegada en Render.com!!')
 })
 
-//Recibir las cuentas.
+// Recibir las cuentas
 app.get('/accounts', (req, res) => {
     res.status(200).send(store.accounts)
 })
 
-//Registrar una cuenta
+// Registrar una cuenta
 app.post('/accounts', (req, res) => {
     let newAccount = req.body
     let id = store.accounts.length
@@ -40,26 +35,26 @@ app.post('/accounts', (req, res) => {
     res.status(201).send({id: id})
 })
 
-//Modificar las cuentas
+// Modificar las cuentas
 app.put('/accounts/:id', (req, res) => {
     store.accounts[req.params.id] = req.body
     res.status(200).send(store.accounts[req.params.id])
 })
 
-//Eliminar la cuenta
+// Eliminar la cuenta
 app.delete('/accounts/:id', (req, res) => {
     store.accounts.splice(req.params.id, 1)
     res.status(204).send()
 })
 
-//Consultar un unico registro
-app.get('/accounts/:id',(req,res) =>{
+// Consultar un único registro
+app.get('/accounts/:id', (req, res) => {
     let id = req.params.id
     res.status(200).send(store.accounts[id])
 })
 
-
+// Configuración del puerto
+const port = process.env.PORT || 3000
 app.listen(port, () => {
-    console.log(`Express escuchando en http://localhost:${port}`)
+    console.log(`Express escuchando en el puerto ${port}`)
 })
-//Puerto
