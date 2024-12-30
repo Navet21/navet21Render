@@ -2,6 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const errorhandler = require('errorhandler')
 const bodyParser = require('body-parser')
+const port = process.env.PORT || 3000;
 
 //Store
 
@@ -59,7 +60,7 @@ app.get('/accounts/:id',(req,res) =>{
 
 
 app.listen(port, () => {
-    console.log(`Express escuchando en http://localhost:3000`)
+    console.log(`Express escuchando en http://localhost:${port}`)
 })
 //Puerto
 app.listen(3000)
