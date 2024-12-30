@@ -20,6 +20,12 @@ app.use(errorhandler()) // Middleware para manejar errores en modo desarrollo
 
 //Endpoints
 
+//Confirmacion de Render
+
+app.get('/', (_req, res) => {
+    res.send('API REST desplegada en Render.com!!')
+})
+
 //Recibir las cuentas.
 app.get('/accounts', (req, res) => {
     res.status(200).send(store.accounts)
@@ -51,5 +57,9 @@ app.get('/accounts/:id',(req,res) =>{
     res.status(200).send(store.accounts[id])
 })
 
+
+app.listen(port, () => {
+    console.log(`Express escuchando en http://localhost:3000`)
+})
 //Puerto
 app.listen(3000)
